@@ -5,7 +5,7 @@ import bean.User;
 import java.util.HashMap;
 
 /**
- * @Description: SQL工具类
+ * @Description: SQL拼接
  * @author: acn
  * @date: 2023/10/23/22:07
  */

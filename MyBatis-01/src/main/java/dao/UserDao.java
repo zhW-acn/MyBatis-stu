@@ -21,6 +21,13 @@ public interface UserDao {// 没有实现类
     List<User> selectAllUser();
 
     /**
+     * 使用map实现查询不定参数
+     * @param hashMap
+     * @return
+     */
+    List<User> selectUserByCond(HashMap hashMap);
+
+    /**
      * 查询一个user id为1，
      *
      * @return User
@@ -29,6 +36,11 @@ public interface UserDao {// 没有实现类
     User selectUserById(String id);
 
 
+    /**
+     * 手动拼串
+     * @param map
+     * @return
+     */
     @SelectProvider(type = SqlProvider.class, method = "creatSql")
     List<User> selectUserByNameAndPasswdUseProvider(HashMap map);
 }

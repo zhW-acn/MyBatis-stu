@@ -9,7 +9,29 @@
         <result column="u_name" property="name"/>
         <result column="u_passwd" property="passwd"/>
     </resultMap>
+
     <select id="selectAllUser" resultMap="UserMap">
         select * from user
     </select>
+
+
+    <select id="selectUserByCond" resultMap="UserMap">
+        select * from user
+        <trim prefix="where" prefixOverrides="and">
+            <if test="name!=null and name!=''">
+                u_name = #{name}
+            </if>
+            <if test="passwd!=null and passwd!=''">
+                and u_passwd = #{passwd}
+            </if>
+            <if test="email!=null and email!=''">
+                and email = #{email}
+            </if>
+            <if test="birth!=null and birth!=''">
+                and birth = #{birth}
+            </if>
+        </trim>
+    </select>
+
+
 </mapper>
