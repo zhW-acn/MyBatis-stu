@@ -34,4 +34,31 @@
     </select>
 
 
+    <update id="updateUser" parameterType="bean.User">
+        update user
+        <set>
+            <if test="name!=null and name!=''">
+                u_name = #{name}
+            </if>
+            <if test="passwd!=null and passwd!=''">
+                u_passwd = #{passwd}
+            </if>
+            <if test="email!=null and email!=''">
+                email = #{email}
+            </if>
+            <if test="birth!=null and birth!=''">
+                birth = #{birth}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    
+    
+    <select id="selectUsersById" resultMap="UserMap" parameterType="int">
+        select * from user where id in
+        <foreach collection="arg0" item="ids" open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
+    </select>
+    
 </mapper>

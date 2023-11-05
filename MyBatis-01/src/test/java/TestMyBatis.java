@@ -21,7 +21,7 @@ import java.util.List;
 @Slf4j
 public class TestMyBatis {
     static SqlSession sqlSession;
-
+    UserDao userDao;
     //
     @Before
     public void before() {
@@ -30,6 +30,8 @@ public class TestMyBatis {
         try (InputStream is = Resources.getResourceAsStream(resource)) {// 实现了closeable
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
             sqlSession = sqlSessionFactory.openSession();
+
+            userDao = sqlSession.getMapper(UserDao.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -55,14 +57,12 @@ public class TestMyBatis {
 
     @Test
     public void annotationTest() {
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
         log.debug("userDao.selectUser() is [{}]", userDao.selectUserById("1"));
 
     }
 
     @Test
     public void providerTest() {
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
         HashMap hashMap = new HashMap();
         hashMap.put("name","1");
         hashMap.put("passwd","1");
@@ -72,12 +72,28 @@ public class TestMyBatis {
 
     @Test
     public void condTest(){
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("name","安藤大和");
         hashMap.put("passwd","OuDcCOLIqK");
 
         List<User> users = userDao.selectUserByCond(hashMap);
+        users.forEach(System.out::println);
+    }
+
+    @Test
+    public void updateUser(){
+        User user = new User();
+        user.setId(1);
+        user.setName("动态修改");
+        userDao.updateUser(user);
+//        sqlSession.commit();
+    }
+
+
+    @Test
+    public void selectUsersById(){
+        int[] ids = {1,2,3,4,5,123,0,6};
+        List<User> users = userDao.selectUsersById(ids);
         users.forEach(System.out::println);
     }
 }

@@ -28,6 +28,20 @@ public interface UserDao {// 没有实现类
     List<User> selectUserByCond(HashMap hashMap);
 
     /**
+     * 只修改参数对象中改变的字段
+     * @param user
+     */
+    void updateUser(User user);
+
+    /**
+     * 通过id数组循环查询
+     * 这种场景是查询某个字段在一个集合中的所有数据
+     * @param ids
+     * @return
+     */
+    List<User> selectUsersById(int[] ids);
+
+    /**
      * 查询一个user id为1，
      *
      * @return User
