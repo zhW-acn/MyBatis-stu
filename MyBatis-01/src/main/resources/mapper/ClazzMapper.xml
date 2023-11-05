@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.9//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.ClazzDao">
+
+    <resultMap id="ClazzMap" type="bean.Clazz">
+        <result column="id" property="id"/>
+        <result column="name" property="className"/>
+
+        <!--配置对象属性的映射关系-->
+        <collection javaType="List" ofType="bean.User" property="users">
+            <result column="id" property="id"/>
+            <result column="u_name" property="name"/>
+            <result column="u_passwd" property="passwd"/>
+            <result column="email" property="email"/>
+            <result column="birth" property="birth"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectAllClazz" resultMap="ClazzMap">
+        select u.*,c.* from class c left join user u on u.classid = c.id where c.id = u.classid
+    </select>
+</mapper>

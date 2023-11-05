@@ -41,6 +41,10 @@ public interface UserDao {// 没有实现类
      */
     List<User> selectUsersById(int[] ids);
 
+
+
+    List<User> selectUsersByIdIncludeClass();
+
     /**
      * 查询一个user id为1，
      *

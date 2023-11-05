@@ -6,8 +6,17 @@
 <mapper namespace="dao.UserDao">
 
     <resultMap id="UserMap" type="bean.User">
+        <result column="id" property="id"/>
         <result column="u_name" property="name"/>
         <result column="u_passwd" property="passwd"/>
+        <result column="email" property="email"/>
+        <result column="birth" property="birth"/>
+
+        <!--配置对象属性的映射关系-->
+        <association javaType="bean.Clazz" property="clazz" column="classid">
+            <result column="id" property="id"/>
+            <result column="name" property="className"/>
+        </association>
     </resultMap>
 
     <select id="selectAllUser" resultMap="UserMap">
@@ -52,13 +61,16 @@
         </set>
         where id=#{id}
     </update>
-    
-    
+
     <select id="selectUsersById" resultMap="UserMap" parameterType="int">
         select * from user where id in
         <foreach collection="arg0" item="ids" open="(" close=")" separator=",">
             #{ids}
         </foreach>
     </select>
-    
+
+
+    <select id="selectUsersByIdIncludeClass" resultMap="UserMap">
+        select u.*,c.name from user u left join class c on u.classid = c.id where c.`name` = '1班'
+    </select>
 </mapper>

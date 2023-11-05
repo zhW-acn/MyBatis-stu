@@ -1,4 +1,6 @@
+import bean.Clazz;
 import bean.User;
+import dao.ClazzDao;
 import dao.UserDao;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.io.Resources;
@@ -22,6 +24,8 @@ import java.util.List;
 public class TestMyBatis {
     static SqlSession sqlSession;
     UserDao userDao;
+    ClazzDao classDao;
+
     //
     @Before
     public void before() {
@@ -32,6 +36,7 @@ public class TestMyBatis {
             sqlSession = sqlSessionFactory.openSession();
 
             userDao = sqlSession.getMapper(UserDao.class);
+            classDao = sqlSession.getMapper(ClazzDao.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -47,41 +52,42 @@ public class TestMyBatis {
 //        // 通过输入流构建factory
 //        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 //        // factory打开session
-            // 业务处理，通过sqlSession获得接口对象（注册mapper）
-            UserDao mapper = sqlSession.getMapper(UserDao.class);
-            log.debug("mapper.selectAllUser() is [{}]", mapper.selectAllUser());
-
-
+        // 业务处理，通过sqlSession获得接口对象（注册mapper）
+        UserDao mapper = sqlSession.getMapper(UserDao.class);
+        log.debug("mapper.selectAllUser() is [{}]", mapper.selectAllUser());
     }
 
-
+    // 注解测试
     @Test
     public void annotationTest() {
         log.debug("userDao.selectUser() is [{}]", userDao.selectUserById("1"));
 
     }
 
+    // 手动拼串
     @Test
     public void providerTest() {
-        HashMap hashMap = new HashMap();
-        hashMap.put("name","1");
-        hashMap.put("passwd","1");
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put("name", "1");
+        hashMap.put("passwd", "1");
         log.debug("userDao.selectUser() is [{}]", userDao.selectUserByNameAndPasswdUseProvider(hashMap));
 
     }
 
+    // 不定参数
     @Test
-    public void condTest(){
+    public void condTest() {
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("name","安藤大和");
-        hashMap.put("passwd","OuDcCOLIqK");
+        hashMap.put("name", "安藤大和");
+        hashMap.put("passwd", "OuDcCOLIqK");
 
         List<User> users = userDao.selectUserByCond(hashMap);
         users.forEach(System.out::println);
     }
 
+    // update
     @Test
-    public void updateUser(){
+    public void updateUserTest() {
         User user = new User();
         user.setId(1);
         user.setName("动态修改");
@@ -90,10 +96,25 @@ public class TestMyBatis {
     }
 
 
+    // 数组循环查询
     @Test
-    public void selectUsersById(){
-        int[] ids = {1,2,3,4,5,123,0,6};
+    public void selectUsersByIdTest() {
+        int[] ids = {1, 2, 3, 4, 5, 123, 0, 6};
         List<User> users = userDao.selectUsersById(ids);
         users.forEach(System.out::println);
+    }
+
+
+    // 关联查询
+    @Test
+    public void selectUsersByIdIncludeClassTest(){
+        List<User> users = userDao.selectUsersByIdIncludeClass();
+        users.forEach(System.out::println);
+    }
+
+    @Test
+    public void selectAllClazz(){
+        List<Clazz> clazzes = classDao.selectAllClazz();
+        clazzes.forEach(System.out::println);
     }
 }

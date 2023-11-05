@@ -19,5 +19,6 @@
 
     <mappers>
         <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/ClazzMapper.xml"/>
     </mappers>
 </configuration>
