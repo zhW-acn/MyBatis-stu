@@ -1,3 +1,14 @@
+xml中主配置文件根标签为configuration
+
+properties标签的resource用于指定配置连接数据库的文件地址
+
+使用别名typeAliases简化全限定类名
+
+environments的default属性实行用于切换指定环境
+* dev 开发环境
+* pref预生产环境
+* test测试环境
+
 mapper标签
 
 属性值 
