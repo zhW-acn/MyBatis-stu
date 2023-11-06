@@ -63,6 +63,7 @@
 
     <modules>
         <module>MyBatis-01</module>
+        <module>MyBatis-annotation</module>
     </modules>
 
 

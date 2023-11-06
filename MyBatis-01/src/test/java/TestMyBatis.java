@@ -112,9 +112,17 @@ public class TestMyBatis {
         users.forEach(System.out::println);
     }
 
+    // 查询所有班下的所有学生
     @Test
     public void selectAllClazz(){
         List<Clazz> clazzes = classDao.selectAllClazz();
         clazzes.forEach(System.out::println);
+    }
+
+    // 查询指定班下的所有学生
+    @Test
+    public void selectUsersByClazzName(){
+        List<User> users = userDao.selectUsersByClazzName("2班");
+        users.forEach(System.out::println);
     }
 }

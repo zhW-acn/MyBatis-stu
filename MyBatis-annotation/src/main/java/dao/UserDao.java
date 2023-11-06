@@ -2,8 +2,7 @@ package dao;
 
 import bean.Clazz;
 import bean.User;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.*;
 import utils.SqlProvider;
 
 import java.util.HashMap;
@@ -19,6 +18,14 @@ public interface UserDao {// 没有实现类
     /**
      * 查询所有User
      */
+    @Select("select * from user")
+    @Results({
+            @Result(column = "id",property = "id"),
+            @Result(column = "u_name",property = "name"),
+            @Result(column = "u_passwd",property = "passwd"),
+            @Result(column = "email",property = "email"),
+            @Result(column = "birth",property = "birth")
+    })
     List<User> selectAllUser();
 
     /**
@@ -26,12 +33,15 @@ public interface UserDao {// 没有实现类
      * @param hashMap
      * @return
      */
+
+    @SelectProvider(type =SqlProvider.class,method = "selectUserByCond")
     List<User> selectUserByCond(HashMap hashMap);
 
     /**
      * 只修改参数对象中改变的字段
      * @param user
      */
+    @UpdateProvider(type = SqlProvider.class,method = "updateUser")
     void updateUser(User user);
 
     /**
@@ -40,6 +50,7 @@ public interface UserDao {// 没有实现类
      * @param ids
      * @return
      */
+    @Select("select * from user where ")
     List<User> selectUsersById(int[] ids);
 
 
@@ -59,7 +70,7 @@ public interface UserDao {// 没有实现类
      * @return User
      */
     @Select("select * from user where id = #{arg0}")
-    User selectUserById(String id);
+    User selectUserById(int id);
 
 
     /**
@@ -67,6 +78,6 @@ public interface UserDao {// 没有实现类
      * @param map
      * @return
      */
-    @SelectProvider(type = SqlProvider.class, method = "creatSql")
+    @SelectProvider(type = SqlProvider.class, method = "selectUserByCond")
     List<User> selectUserByNameAndPasswdUseProvider(HashMap map);
 }

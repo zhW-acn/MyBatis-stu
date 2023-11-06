@@ -4,7 +4,7 @@
 ```java
 @Slf4j
 public class TestMyBatis {
-    @Test
+    @annotationTest
     public void test() throws IOException {
         // 指定配置文件
         String res = "mybatis-config.xml";
