@@ -13,6 +13,7 @@ import java.util.List;
  * @author: acn
  * @date: 2023/10/22/20:46
  */
+@Mapper
 public interface UserDao {// 没有实现类
 
     /**
@@ -50,7 +51,7 @@ public interface UserDao {// 没有实现类
      * @param ids
      * @return
      */
-    @Select("select * from user where ")
+    @Select("select * from user where id = ")
     List<User> selectUsersById(int[] ids);
 
 
@@ -69,8 +70,8 @@ public interface UserDao {// 没有实现类
      *
      * @return User
      */
-    @Select("select * from user where id = #{arg0}")
-    User selectUserById(int id);
+    @Select("select * from user where id = #{id}")
+    User selectUserById(@Param("id") int id);
 
 
     /**

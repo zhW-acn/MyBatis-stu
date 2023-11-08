@@ -16,4 +16,8 @@
             </dataSource>
         </environment>
     </environments>
+
+    <mappers>
+        <mapper class="dao.UserDao"/>
+    </mappers>
 </configuration>
