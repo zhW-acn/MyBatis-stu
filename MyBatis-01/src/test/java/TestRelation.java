@@ -1,17 +1,13 @@
-import bean.relation.Product;
-import dao.O_PDao;
 import dao.OrderDao;
 import dao.ProductDao;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @Description: TODO
@@ -23,7 +19,6 @@ public class TestRelation {
     static SqlSession sqlSession = null;
     ProductDao productDao;
     OrderDao orderDao;
-    O_PDao opDao;
     @Before
     public void beforeTest(){
         try {
@@ -33,7 +28,6 @@ public class TestRelation {
         }
         productDao = sqlSession.getMapper(ProductDao.class);
         orderDao = sqlSession.getMapper(OrderDao.class);
-        opDao = sqlSession.getMapper(O_PDao.class);
     }
 
     @Test
@@ -44,11 +38,6 @@ public class TestRelation {
     @Test
     public void selectAllOrdersTest(){
         orderDao.selectAllOrders().forEach(System.out::println);
-    }
-
-    @Test
-    public void selectAllOPTest(){
-        opDao.selectAllOP().forEach(System.out::println);
     }
 
 }

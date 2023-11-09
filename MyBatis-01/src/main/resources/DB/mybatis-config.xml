@@ -26,6 +26,5 @@
         <mapper resource="mapper/ClazzMapper.xml"/>
         <mapper resource="mapper/ProductMapper.xml"/>
         <mapper resource="mapper/OrderMapper.xml"/>
-        <mapper resource="mapper/O_PMapper.xml"/>
     </mappers>
 </configuration>

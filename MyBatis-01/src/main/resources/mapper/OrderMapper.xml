@@ -7,10 +7,16 @@
     <resultMap id="oMap" type="bean.relation.Order">
         <id column="id" property="id"/>
         <result column="name" property="oName"/>
+        <collection property="products" ofType="bean.relation.Product">
+            <result column="id" property="id"/>
+            <result column="name" property="pName"/>
+        </collection>
     </resultMap>
 
     <select id="selectAllOrders" resultMap="oMap">
         select *
         from `order`
+        left outer join o_p o on `order`.id = o.o_id
+        left outer join product p on o.p_id = p.id
     </select>
 </mapper>
