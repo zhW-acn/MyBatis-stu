@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.9//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.O_PDao">
+
+    <resultMap id="OPMap" type="bean.relation.O_P">
+        <id column="id" property="id"/>
+
+        <collection property="pId" column="pid" select="dao.ProductDao.selectAllProducts"/>
+        <collection property="oId" column="oid" select="dao.OrderDao.selectAllOrders"/>
+    </resultMap>
+
+    <select id="selectAllOP" resultMap="OPMap">
+        select *
+        from o_p
+    </select>
+
+</mapper>
