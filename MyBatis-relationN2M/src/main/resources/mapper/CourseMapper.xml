@@ -6,11 +6,11 @@
 <mapper namespace="dao.CourseDao">
 
     <resultMap id="CourseMapper" type="bean.Course">
-        <result column="id" property="id"/>
+        <result column="c_id" property="cId"/>
         <result column="c_name" property="cName"/>
 <!--        <collection property="students" javaType="List" resultMap="dao.StudentDao.StudentMap"/>-->
         <collection property="students" javaType="List" ofType="bean.Student">
-            <result column="id" property="id"/>
+            <result column="s_id" property="sId"/>
             <result column="s_name" property="sName"/>
         </collection>
     </resultMap>
@@ -19,7 +19,7 @@
     <select id="selectAllCourses" resultMap="CourseMapper">
         select *
         from test.course
-        left join c_s cs on course.id = cs.c_id
-        left outer join student s on s.id = cs.s_id
+        left join c_s cs on course.c_id = cs.c_id
+        left outer join student s on s.s_id = cs.s_id
     </select>
 </mapper>

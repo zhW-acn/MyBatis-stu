@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Student {
 
-    int id;
+    int sId;
     String sName;
 
     List<Course> courses;
