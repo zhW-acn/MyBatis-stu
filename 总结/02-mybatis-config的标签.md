@@ -25,4 +25,4 @@ id属性用于命名当前环境，以便指定
 
 ## mappers
 注册mapper文件
-> mapper
+> mapper resource=注册Mapper文件的路径。还可以通过class和url注册
