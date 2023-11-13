@@ -27,4 +27,4 @@ public class TestMyBatis {
    
 getMapper动态生成了代理对象【Proxy】，这个代理对象实现了该mapper的接口。实现接口方法中拿到openSession，调用该方法，找到xml中对应的sql语句并执行。【最后返回查询的封装对象】
 
-SqlSessionFactory对象是核心，一个工程 的数据库相关的操作都围绕该对象进行
+SqlSessionFactory对象是核心，一个工程的数据库相关的操作都围绕该对象进行

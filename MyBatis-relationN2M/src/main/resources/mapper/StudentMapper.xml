@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.9//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.StudentDao">
+
+    <resultMap id="StudentMap" type="bean.Student">
+        <result column="id" property="id"/>
+        <result column="s_name" property="sName"/>
+<!--        <collection property="courses" javaType="List" resultMap="dao.CourseDao.CourseMapper"/>-->
+        <collection property="courses" javaType="List" ofType="bean.Course">
+            <result column="id" property="id"/>
+            <result column="c_name" property="cName"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="selectAllStudents" resultMap="StudentMap">
+        select *
+        from test.student
+        left join c_s cs on student.id = cs.s_id
+        left outer join course c on c.id = cs.c_id
+    </select>
+</mapper>

@@ -3,11 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties resource="DB/jdbc.properties"/>
-    <!--取别名-->
+    <properties resource="jdbc.properties"/>
     <typeAliases>
-        <typeAlias type="bean.User" alias="User"/>
-        <typeAlias type="bean.Clazz" alias="Clazz"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -22,7 +19,7 @@
     </environments>
 
     <mappers>
-        <mapper resource="mapper/UserMapper.xml"/>
-        <mapper resource="mapper/ClazzMapper.xml"/>
+        <mapper resource="mapper/StudentMapper.xml"/>
+        <mapper resource="mapper/CourseMapper.xml"/>
     </mappers>
 </configuration>
